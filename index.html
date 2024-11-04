@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prosty Pasek Wyboru</title>
+<style>
+  /* Styl głównego paska wyboru */
+  .custom-select {
+    position: relative;
+    width: 200px;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Wyświetlana opcja */
+  .select-selected {
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+
+  /* Opcje do wyboru (ukryte na początku) */
+  .select-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: none; /* Ukryte domyślnie */
+    border: 1px solid #333;
+    background-color: #fff;
+    border-radius: 5px;
+    z-index: 1;
+  }
+
+  /* Styl dla każdej opcji */
+  .option {
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  /* Kolor tła po najechaniu */
+  .option:hover {
+    background-color: #ddd;
+  }
+
+  /* Klasa do pokazania opcji */
+  .show {
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<!-- Pasek wyboru -->
+<div class="custom-select">
+  <div class="select-selected">Wybierz opcję</div>
+  <div class="select-options">
+    <div class="option">Opcja 1</div>
+    <div class="option">Opcja 2</div>
+    <div class="option">Opcja 3</div>
+  </div>
+</div>
+
+<script>
+  // JavaScript do obsługi paska wyboru
+  document.addEventListener('DOMContentLoaded', function() {
+    const selected = document.querySelector('.select-selected');
+    const optionsContainer = document.querySelector('.select-options');
+    const options = document.querySelectorAll('.option');
+
+    // Pokaż/ukryj opcje po kliknięciu na wybraną opcję
+    selected.addEventListener('click', () => {
+      optionsContainer.classList.toggle('show');
+    });
+
+    // Zmień wybraną opcję po kliknięciu
+    options.forEach(option => {
+      option.addEventListener('click', () => {
+        selected.innerText = option.innerText;
+        optionsContainer.classList.remove('show');
+      });
+    });
+
+    // Ukryj opcje po kliknięciu poza elementem
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.custom-select')) {
+        optionsContainer.classList.remove('show');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
